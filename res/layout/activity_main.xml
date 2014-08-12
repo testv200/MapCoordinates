@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="in.curium.mapcoordinates.MainActivity" >
+
+    <EditText
+        android:id="@+id/x_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:hint="@string/x_hint" />
+
+    <EditText
+        android:id="@+id/y_id"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/x_id"
+        android:hint="@string/y_hint" />
+
+    <Button
+        android:id="@+id/submit_coords_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/y_id"
+        android:onClick="sendCoordinates"
+        android:text="@string/sumbit_coords_button_text" />
+
+    <Button
+        android:id="@+id/get_coords_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/submit_coords_id"
+        android:onClick="getCoordinates"
+        android:text="@string/get_coords_button_text" />
+
+    <TextView
+        android:id="@+id/result_id"
+        android:layout_below="@id/get_coords_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="15"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>
