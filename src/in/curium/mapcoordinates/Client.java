@@ -64,14 +64,11 @@ public abstract class Client extends Thread {
 		try {
 			if (readOrWrite == READ) {
 				url = new URL(
-						//"http://example.com/read-coords-from-text-file.php");
-						"http://10.16.20.214/accesstestfile.php");
+					"http://example.com/read-coords-from-text-file.php");
 			} else if (readOrWrite == WRITE) {
 				url = new URL(
-						//"http://example.com/write-coords-to-text-file.php?x="
-						"http://10.16.20.214/writecoords.php?x="
-								+ this.x + "&y=" + this.y);
-						
+					"http://example.com/write-coords-to-text-file.php?x="
+					+ this.x + "&y=" + this.y);
 			}
 
 			HttpURLConnection urlConnection = (HttpURLConnection) url
