@@ -10,8 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 public abstract class Client extends Thread {
 
@@ -37,19 +39,23 @@ public abstract class Client extends Thread {
 	public void run() {
 		super.run();
 		String output = getDataFromUrl();
-		JSONObject jsonObject = parseJson(output);
-		postResult(jsonObject);
+		Object responseObject = parseJson(output);
+		postResult(responseObject);
 	}
 
-	private JSONObject parseJson(String stringJson) {
-		JSONObject jsonObj = null;
+	private Object parseJson(String stringJson) {
 		try {
-			jsonObj = new JSONObject(stringJson);
+			Object object = new JSONTokener(stringJson).nextValue();
+			if (object instanceof JSONObject) {
+				return (JSONObject) object;
+			} else if (object instanceof JSONArray) {
+				return (JSONArray) object;
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return jsonObj;
+		}	
+		return null;
 	}
 
 	private String getDataFromUrl() {
@@ -58,11 +64,14 @@ public abstract class Client extends Thread {
 		try {
 			if (readOrWrite == READ) {
 				url = new URL(
-						"http://example.com/read-coords-from-text-file.php");
+						//"http://example.com/read-coords-from-text-file.php");
+						"http://10.16.20.214/accesstestfile.php");
 			} else if (readOrWrite == WRITE) {
 				url = new URL(
-						"http://example.com/write-coords-to-text-file.php?x="
+						//"http://example.com/write-coords-to-text-file.php?x="
+						"http://10.16.20.214/writecoords.php?x="
 								+ this.x + "&y=" + this.y);
+						
 			}
 
 			HttpURLConnection urlConnection = (HttpURLConnection) url
@@ -109,5 +118,5 @@ public abstract class Client extends Thread {
 		return out.toString();
 	}
 	
-	public abstract void postResult(JSONObject jsonObject);
+	public abstract void postResult(Object reponseObject);
 }
